@@ -6,17 +6,17 @@ import json
 import os
 import sys
 import copy
+import logging
 from datetime import datetime
 from decimal import Decimal
 from tempfile import mkstemp
 
 from joblib import Parallel, delayed, parallel_backend
 from jsonschema import Draft7Validator, FormatChecker
-from singer import get_logger
 
 from target_postgres.db_sync import DbSync
 
-LOGGER = get_logger('target_postgres')
+LOGGER = logging.getLogger('target_postgres')
 
 DEFAULT_BATCH_SIZE_ROWS = 100000
 DEFAULT_PARALLELISM = 0  # 0 The number of threads used to flush tables

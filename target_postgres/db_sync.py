@@ -3,12 +3,12 @@ import sys
 import psycopg2
 import psycopg2.extras
 import collections
+from logging import getLogger
 import inflection
 import re
 import uuid
 import itertools
 import time
-from singer import get_logger
 
 
 # pylint: disable=missing-function-docstring,missing-class-docstring
@@ -69,7 +69,7 @@ def column_type(schema_property):
     elif 'boolean' in property_type:
         col_type = 'boolean'
 
-    get_logger('target_postgres').debug("schema_property: %s -> col_type: %s", schema_property, col_type)
+    getLogger('target_postgres').debug("schema_property: %s -> col_type: %s", schema_property, col_type)
 
     return col_type
 
@@ -206,7 +206,7 @@ class DbSync:
         self.stream_schema_message = stream_schema_message
 
         # logger to be used across the class's methods
-        self.logger = get_logger('target_postgres')
+        self.logger = getLogger('target_postgres')
 
         # Validate connection configuration
         config_errors = validate_config(connection_config)
